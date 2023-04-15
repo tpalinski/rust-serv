@@ -1,6 +1,8 @@
 use std::{net::{TcpListener, TcpStream}, io::{Read, Write}};
 use std::str;
+
 mod route_parser;
+mod router;
 
 fn handle_request(stream: &mut TcpStream){
     println!("Client request stuff");
