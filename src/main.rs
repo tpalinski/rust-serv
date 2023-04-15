@@ -6,6 +6,8 @@ fn handle_request(stream: &mut TcpStream){
     println!("Client request stuff");
     let mut buf = [0; 1024];
     stream.read(&mut buf).expect("Error reading TcpStream");
+    let route = route_parser::parse_route(&buf);
+    println!("{route}");
     let response_string = "HTTP/1.1 200 OK\r
 Content-Type: text/plain\r
 Custom-Header: nice\r
