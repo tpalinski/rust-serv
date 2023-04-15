@@ -21,6 +21,8 @@ fn main() -> std::io::Result<()> {
     println!("Starting server");
     let listener = TcpListener::bind("localhost:8080")?;
     let mut router = Router::default();
+    router.add_route(String::from("/"), Box::new(|| {"Hello from main route!".to_string()}));
+    router.add_route(String::from("/test"), Box::new(|| {"And this is a test route!".to_string()}));
     for stream in listener.incoming() {
         handle_request(&mut stream?, &mut router);
     }
