@@ -5,6 +5,7 @@ use crate::router::Router;
 
 mod route_parser;
 mod router;
+mod html_parser;
 
 fn handle_request(stream: &mut TcpStream, router: &mut Router){
     let mut buf = [0; 1024];
@@ -19,6 +20,8 @@ fn handle_request(stream: &mut TcpStream, router: &mut Router){
 
 fn main() -> std::io::Result<()> {
     println!("Starting server");
+    let html_content = html_parser::parse_html("index.html");
+    println!("{html_content}");
     let listener = TcpListener::bind("localhost:8080")?;
     let mut router = Router::default();
     router.add_route(String::from("/"), Box::new(|| {"Hello from main route!".to_string()}));
