@@ -5,6 +5,7 @@ use crate::router::Router;
 
 mod route_parser;
 mod router;
+mod html_parser;
 
 fn handle_request(stream: &mut TcpStream, router: &mut Router){
     let mut buf = [0; 1024];
@@ -23,6 +24,7 @@ fn main() -> std::io::Result<()> {
     let mut router = Router::default();
     router.add_route(String::from("/"), Box::new(|| {"Hello from main route!".to_string()}));
     router.add_route(String::from("/test"), Box::new(|| {"And this is a test route!".to_string()}));
+    router.add_route(String::from("/hello"), Box::new(|| {html_parser::parse_html("index.html")}));
     for stream in listener.incoming() {
         handle_request(&mut stream?, &mut router);
     }
