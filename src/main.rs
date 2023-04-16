@@ -20,12 +20,11 @@ fn handle_request(stream: &mut TcpStream, router: &mut Router){
 
 fn main() -> std::io::Result<()> {
     println!("Starting server");
-    let html_content = html_parser::parse_html("index.html");
-    println!("{html_content}");
     let listener = TcpListener::bind("localhost:8080")?;
     let mut router = Router::default();
     router.add_route(String::from("/"), Box::new(|| {"Hello from main route!".to_string()}));
     router.add_route(String::from("/test"), Box::new(|| {"And this is a test route!".to_string()}));
+    router.add_route(String::from("/hello"), Box::new(|| {html_parser::parse_html("index.html")}));
     for stream in listener.incoming() {
         handle_request(&mut stream?, &mut router);
     }

@@ -20,7 +20,7 @@ impl Router {
                 response_string = "".to_string();
             }  
             Some(f) => {
-                header_string = "HTTP/1.1 200 OK\r\n\r\n".to_string();
+                header_string = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n".to_string();
                 let fun = &(f);
                 response_string = fun();
             }
