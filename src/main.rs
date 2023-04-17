@@ -6,6 +6,7 @@ use crate::router::Router;
 mod route_parser;
 mod router;
 mod html_parser;
+mod response;
 
 fn handle_request(stream: &mut TcpStream, router: &mut Router){
     let mut buf = [0; 1024];
