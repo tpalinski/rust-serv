@@ -1,4 +1,4 @@
-use std::time::{SystemTime, Duration};
+use std::{time::{SystemTime, Duration}, collections::HashMap};
 
 pub enum ResponseCodes {
     OK,
@@ -48,5 +48,23 @@ impl Headers {
                 ("Access-Control-Allow-Origin: ".to_string() + origins + "\n\r").to_string()
             }
         }
+    }
+}
+
+enum ResponseParts {
+    Status,
+    Headers,
+    Whitespace,
+    Content
+}
+
+pub struct Response {
+
+    content: HashMap<ResponseParts, String>
+}
+
+impl Response {
+    pub fn new() -> Self {
+        Self { content: HashMap::new() }
     }
 }
